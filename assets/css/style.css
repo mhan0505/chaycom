@@ -130,12 +130,13 @@ button, input, select, textarea {
 }
 
 .site-logo-img {
-  width: 52px;
-  height: 52px;
-  object-fit: contain;
+  width: 54px;
+  height: 54px;
+  object-fit: cover;
   border-radius: 50%;
   border: 2px solid var(--woo-primary);
   background: #fff;
+  display: block;
 }
 
 .site-title-wrap {
