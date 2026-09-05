@@ -20,3 +20,6 @@ shuup/
 
 # Vercel
 .vercel/
+
+.vercel
+.env*
