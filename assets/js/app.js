@@ -568,3 +568,10 @@ function showToast(message) {
     toast.classList.remove('active');
   }, 2800);
 }
+
+// 13. FAQ ACCORDION HANDLER (SEO EVIDENCE)
+function toggleFaq(el) {
+  const item = el.parentElement;
+  item.classList.toggle('active');
+}
+
