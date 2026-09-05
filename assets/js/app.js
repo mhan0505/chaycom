@@ -131,6 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
   renderProductGrid(PRODUCTS.slice(0, 4), 'bestsellers-grid-container');
   updateCartBadge();
   setupEventListeners();
+  setupVideoAutoplayOnScroll();
 
   // Load route from hash if exists
   const hash = window.location.hash.replace('#', '');
@@ -574,4 +575,50 @@ function toggleFaq(el) {
   const item = el.parentElement;
   item.classList.toggle('active');
 }
+
+// 14. AUTOPLAY VIDEO ON SCROLL (INTERSECTION OBSERVER)
+function setupVideoAutoplayOnScroll() {
+  const video = document.getElementById('adVideoPlayer');
+  if (!video) return;
+
+  // Modern browsers require muted for autoplay policy
+  video.muted = true;
+
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && entry.intersectionRatio >= 0.35) {
+          // Video is at least 35% visible in viewport -> Auto Play
+          const playPromise = video.play();
+          if (playPromise !== undefined) {
+            playPromise.catch(() => {
+              // Autoplay policy fallback
+            });
+          }
+        } else {
+          // Video scrolled out of view -> Pause to save resources
+          if (!video.paused) {
+            video.pause();
+          }
+        }
+      });
+    }, {
+      threshold: [0, 0.35, 0.7]
+    });
+
+    observer.observe(video);
+  } else {
+    // Fallback for older browsers
+    window.addEventListener('scroll', () => {
+      const rect = video.getBoundingClientRect();
+      const inView = rect.top < window.innerHeight && rect.bottom > 0;
+      if (inView && video.paused) {
+        video.play().catch(() => {});
+      } else if (!inView && !video.paused) {
+        video.pause();
+      }
+    }, { passive: true });
+  }
+}
+
 
