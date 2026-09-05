@@ -762,20 +762,30 @@ button, input, select, textarea {
 
 .video-player-wrap {
   position: relative;
-  padding-bottom: 56.25%;
-  height: 0;
-  overflow: hidden;
+  width: 100%;
   border-radius: 12px;
-  border: 3px solid rgba(232, 168, 56, 0.4);
+  border: 3px solid rgba(232, 168, 56, 0.5);
   box-shadow: var(--shadow-lg);
+  background: #000;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.video-player-wrap video,
+.local-video-player {
+  width: 100%;
+  max-height: 440px;
+  display: block;
+  object-fit: contain;
+  background: #000;
 }
 
 .video-player-wrap iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
-  height: 100%;
+  height: 380px;
+  border: none;
 }
 
 /* WHY US / QUALITY PILLARS */
